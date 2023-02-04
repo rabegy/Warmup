@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 
 app = Flask (__name__)
 app.config ["DEBUG"] = True
@@ -31,5 +31,14 @@ def index():
 @app.route ('/api/v1/resources/books/all', methods=['GET'])
 def get_all_books():
     return jsonify(books)
+
+@app.route ('/api/v1/resouces/books/byid', methods=['GET'])
+def get_book_by_id():
+    book_id = int (request.args.get ('id'))
+    print (type (book_id))
+    print (book_id)
+    for book in books: 
+        if book ['id']  == book_id:
+            return jsonify (book)
 
 app.run()
